@@ -52,9 +52,14 @@ export const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
+
+    const subject = encodeURIComponent(`Founder Collaboration / Proposal from ${formData.name}`);
+    const body = encodeURIComponent(`Hi Najrudin,\n\nMy name is ${formData.name} (${formData.email}).\n\nHere is my message / proposal:\n--------------------------------------------------\n${formData.message}\n--------------------------------------------------\n\nBest regards,\n${formData.name}`);
+
+    // Open user's email client pre-filled
+    window.location.href = `mailto:${FOUNDER_CONTENT.contact.email}?subject=${subject}&body=${body}`;
+
     setFormSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setFormSubmitted(false), 5000);
   };
 
   return (
@@ -167,15 +172,33 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3"
+                  className="p-8 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-center space-y-4"
                 >
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-2">
-                    <Check className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-2">
+                    <Send className="w-6 h-6 animate-pulse" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Message Sent Successfully!</h4>
-                  <p className="text-slate-300 text-sm font-normal">
-                    Thank you for reaching out. I check my inbox personally and will get back to you as soon as possible.
+                  <h4 className="text-xl font-bold text-white">Opening Your Email Client...</h4>
+                  <p className="text-slate-300 text-sm font-normal max-w-md mx-auto leading-relaxed">
+                    Your default email app (Gmail, Apple Mail, Outlook, etc.) should now open with your proposal pre-filled to <span className="font-mono text-blue-400 font-medium">{FOUNDER_CONTENT.contact.email}</span>.
                   </p>
+                  <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button
+                      onClick={() => {
+                        const subject = encodeURIComponent(`Founder Collaboration / Proposal from ${formData.name}`);
+                        const body = encodeURIComponent(`Hi Najrudin,\n\nMy name is ${formData.name} (${formData.email}).\n\nHere is my message / proposal:\n--------------------------------------------------\n${formData.message}\n--------------------------------------------------\n\nBest regards,\n${formData.name}`);
+                        window.location.href = `mailto:${FOUNDER_CONTENT.contact.email}?subject=${subject}&body=${body}`;
+                      }}
+                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all"
+                    >
+                      Click Here to Re-Open Mail App
+                    </button>
+                    <button
+                      onClick={() => setFormSubmitted(false)}
+                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all"
+                    >
+                      Edit Message
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
