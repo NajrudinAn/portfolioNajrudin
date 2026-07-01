@@ -23,7 +23,6 @@ export const Footer = () => {
           <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#philosophy" className="hover:text-white transition-colors">Beliefs</a>
           <a href="#projects" className="hover:text-white transition-colors">Building</a>
-          <a href="#clients" className="hover:text-white transition-colors">Clients</a>
           <a href="#community" className="hover:text-white transition-colors">Community</a>
           <a href="#timeline" className="hover:text-white transition-colors">Timeline</a>
           <a href="#skills" className="hover:text-white transition-colors">Skills</a>

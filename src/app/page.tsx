@@ -4,7 +4,6 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Philosophy } from "@/components/Philosophy";
 import { Projects } from "@/components/Projects";
-import { ClientWork } from "@/components/ClientWork";
 import { StartupVision } from "@/components/StartupVision";
 import { Community } from "@/components/Community";
 import { Timeline } from "@/components/Timeline";
@@ -21,7 +20,6 @@ export default function Home() {
         <About />
         <Philosophy />
         <Projects />
-        <ClientWork />
         <StartupVision />
         <Community />
         <Timeline />

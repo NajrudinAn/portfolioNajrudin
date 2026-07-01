@@ -96,7 +96,7 @@ export const FOUNDER_CONTENT = {
       {
         title: "LinkMyDream",
         status: "Growing",
-        description: "A community initiative for builders, students, founders, and creators to connect, collaborate, and grow together.",
+        description: "A community network to connect with everyone—builders, students, founders, and creators. Apply for connection, collaborate, and grow together.",
         tags: ["Community", "Builders", "Founders", "Networking"],
         website: "https://linkmydream.com",
         image: "/images/linkmydream.jpg"

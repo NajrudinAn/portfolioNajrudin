@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://linkmydream.com"),
+  icons: { icon: "/icon.svg" },
   title: "Najrudin Ansari · Founder, Builder & Ecosystem Creator",
   description:
     "I am a Computer Science student, aspiring entrepreneur, and community builder passionate about creating products and ecosystems that help people learn, build, collaborate, and grow together.",

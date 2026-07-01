@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Beliefs", href: "#philosophy" },
   { label: "Building", href: "#projects" },
-  { label: "Clients", href: "#clients" },
   { label: "Community", href: "#community" },
   { label: "Timeline", href: "#timeline" },
   { label: "Skills", href: "#skills" },

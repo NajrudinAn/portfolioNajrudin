@@ -85,10 +85,10 @@ export const Community = () => {
             </div>
             <div>
               <h4 className="text-xl font-bold text-white tracking-tight">
-                Join the LinkMyDream Builder Network
+                Connect via LinkMyDream
               </h4>
               <p className="text-slate-400 text-sm font-normal">
-                Connect with ambitious founders, students, and technologists building the future.
+                Not a platform community—it is just to connect to everyone! Apply for connection to collaborate and grow together.
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export const Community = () => {
             rel="noopener noreferrer"
             className="w-full md:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 shrink-0 glow-blue-sm"
           >
-            <span>Visit LinkMyDream</span>
+            <span>Apply for Connection</span>
             <Globe className="w-4 h-4" />
           </a>
         </motion.div>
