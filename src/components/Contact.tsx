@@ -41,6 +41,8 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   const copyEmail = () => {
@@ -49,17 +51,48 @@ export const Contact = () => {
     setTimeout(() => setCopied(false), 3000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    const subject = encodeURIComponent(`Founder Collaboration / Proposal from ${formData.name}`);
-    const body = encodeURIComponent(`Hi Najrudin,\n\nMy name is ${formData.name} (${formData.email}).\n\nHere is my message / proposal:\n--------------------------------------------------\n${formData.message}\n--------------------------------------------------\n\nBest regards,\n${formData.name}`);
-
-    // Open user's email client pre-filled
-    window.location.href = `mailto:${FOUNDER_CONTENT.contact.email}?subject=${subject}&body=${body}`;
-
-    setFormSubmitted(true);
+    if (FOUNDER_CONTENT.contact.web3formsKey) {
+      setSubmitting(true);
+      setErrorMessage("");
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: FOUNDER_CONTENT.contact.web3formsKey,
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            subject: `New Founder Proposal from ${formData.name}`,
+            from_name: "Najrudin Ansari Founder Portal",
+          }),
+        });
+        const result = await res.json();
+        if (result.success) {
+          setFormSubmitted(true);
+          setFormData({ name: "", email: "", message: "" });
+        } else {
+          setErrorMessage(result.message || "Something went wrong. Please try emailing directly.");
+        }
+      } catch (err) {
+        setErrorMessage("Network error. Please try emailing directly.");
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      // Fallback: Open user's email client pre-filled
+      const subject = encodeURIComponent(`Founder Collaboration / Proposal from ${formData.name}`);
+      const body = encodeURIComponent(`Hi Najrudin,\n\nMy name is ${formData.name} (${formData.email}).\n\nHere is my message / proposal:\n--------------------------------------------------\n${formData.message}\n--------------------------------------------------\n\nBest regards,\n${formData.name}`);
+      window.location.href = `mailto:${FOUNDER_CONTENT.contact.email}?subject=${subject}&body=${body}`;
+      setFormSubmitted(true);
+    }
   };
 
   return (
@@ -247,11 +280,15 @@ export const Contact = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold text-base flex items-center justify-center gap-2 glow-blue transition-all duration-300 transform hover:-translate-y-0.5"
+                    disabled={submitting}
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 text-white font-semibold text-base flex items-center justify-center gap-2 glow-blue transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer disabled:cursor-not-allowed"
                   >
-                    <span>Send Message</span>
+                    <span>{submitting ? "Sending Message..." : "Send Message"}</span>
                     <Send className="w-4 h-4" />
                   </button>
+                  {errorMessage && (
+                    <p className="text-red-400 text-xs text-center mt-2 font-mono">{errorMessage}</p>
+                  )}
                 </form>
               )}
             </div>

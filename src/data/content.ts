@@ -189,6 +189,7 @@ export const FOUNDER_CONTENT = {
     title: "Let's Build Something Meaningful",
     subtitle: "Whether you want to talk startups, collaborate on a project, or join our community initiatives, my inbox is always open.",
     email: "connect@najrudin.com.np",
+    web3formsKey: "", // Paste your Web3Forms access key here (from https://web3forms.com)
     links: [
       { name: "LinkedIn", href: "https://linkedin.com/in/najrudinan", icon: "Linkedin" },
       { name: "GitHub", href: "https://github.com/najrudinan", icon: "Github" },
